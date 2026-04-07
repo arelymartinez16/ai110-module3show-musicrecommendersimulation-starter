@@ -39,6 +39,9 @@ You can include a simple diagram or bullet list if helpful.
 - tempo_bpm
 - valence
 - danceability
+- instrumentalness
+- liveness
+- speechiness
 
 `UserProfile`:
 
