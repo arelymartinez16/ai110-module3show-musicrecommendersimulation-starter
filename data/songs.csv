@@ -17,3 +17,13 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,in
 16,Neon Cascade,Pulse Grid,edm,euphoric,0.94,140,0.88,0.95,0.03,0.82,0.10,0.03
 17,Delta Mud,Ray Colton,blues,sad,0.44,76,0.28,0.48,0.80,0.25,0.50,0.05
 18,Island Morning,Coral Drift,reggae,uplifting,0.61,82,0.89,0.83,0.55,0.15,0.18,0.06
+19,Heartbreak Highway,Dusty Roads,country,sad,0.38,88,0.30,0.52,0.88,0.05,0.42,0.04
+20,Sabor de Noche,Los Vientos,latin,uplifting,0.80,120,0.91,0.92,0.30,0.04,0.18,0.06
+21,Velveteen Soul,Ivory James,soul,romantic,0.50,94,0.78,0.70,0.55,0.06,0.20,0.08
+22,Funky Situation,The Groove Unit,funk,energetic,0.83,108,0.85,0.93,0.12,0.10,0.16,0.09
+23,Neon Petals,SOLEIL,k-pop,happy,0.88,130,0.90,0.91,0.08,0.03,0.11,0.07
+24,Late Night Grind,Haze District,trap,focused,0.66,140,0.44,0.82,0.10,0.15,0.09,0.18
+25,Glass and Rain,The Hollow Pines,folk,melancholic,0.25,70,0.32,0.38,0.95,0.40,0.38,0.03
+26,Slow Dissolve,Orbit Bloom,ambient,moody,0.18,55,0.40,0.28,0.96,0.98,0.04,0.02
+27,Backroads Summer,Coral Drift,indie pop,nostalgic,0.62,104,0.72,0.74,0.48,0.08,0.13,0.04
+28,Quarter Past Blue,Clara Voss,jazz,sad,0.30,72,0.25,0.42,0.91,0.55,0.45,0.03
