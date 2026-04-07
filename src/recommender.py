@@ -78,3 +78,34 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
     # TODO: Implement scoring and ranking logic
     # Expected return format: (song_dict, score, explanation)
     return []
+
+def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
+    """
+    Scores a single song against user preferences.
+    Returns (score, reasons) where reasons explains each point awarded.
+    Required by tests/test_recommender.py
+    """
+    score = 0.0
+    reasons = []
+
+    # Genre match: heaviest weight
+    if song["genre"] == user_prefs["favorite_genre"]:
+        score += 2.0
+        reasons.append("genre match (+2.0)")
+
+    # Mood match
+    if song["mood"] == user_prefs["favorite_mood"]:
+        score += 1.0
+        reasons.append("mood match (+1.0)")
+
+    # Energy similarity: 1.0 for perfect match, 0.0 for worst case
+    energy_score = round(1.0 - abs(song["energy"] - user_prefs["target_energy"]), 2)
+    score += energy_score
+    reasons.append(f"energy similarity (+{energy_score})")
+
+    # Acoustic bonus
+    if user_prefs["likes_acoustic"] and song["acousticness"] > 0.6:
+        score += 0.5
+        reasons.append("acoustic match (+0.5)")
+
+    return round(score, 2), reasons
