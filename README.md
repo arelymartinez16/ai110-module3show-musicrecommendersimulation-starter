@@ -54,6 +54,38 @@ You can include a simple diagram or bullet list if helpful.
 
 The recommendation system need both a "Scoring Rule" and a "Ranking Rule" because they're both going to be used for different use cases. For example, the "Scoring Rule" is going to be used for individual users. It checks how well a song best matches the user's preferences. However, the "Ranking Rule" involves multiple songs to see which songs deserves to be shown.
 
+| Rule              | Points    | How                                               |
+| ----------------- | --------- | ------------------------------------------------- |
+| Genre match       | +2.0      | `song.genre == user.favorite_genre`               |
+| Mood match        | +1.0      | `song.mood == user.favorite_mood`                 |
+| Energy similarity | 0.0 – 1.0 | `1.0 - abs(song.energy - user.target_energy)`     |
+| Acoustic bonus    | +0.5      | `user.likes_acoustic and song.acousticness > 0.6` |
+
+Giving genre 2x the weight of any other feature means non-genre preferences barely matter when genre mismatches. A user who loves acoustic folk but also enjoys acoustic classical will never see classical recommendations. Genre and mood are binary (match or no match). Two songs that are "almost right" score the same as one that's completely wrong. A jazz song to a blues fan scores 0 on genre, same as metal. `likes_acoustic`: bool assumes all users either strongly prefer acoustic or don't care. There's no middle ground, so non-acoustic fans never get the +0.5 even if the song is only slightly acoustic. `target_energy` is a single fixed value. A user might want high energy for workouts and low energy for studying — the profile can't represent that context-switching
+
+```mermaid
+flowchart TD
+    A[songs.csv] --> B[load_songs]
+    B --> C[List of song dicts]
+    C --> D[score_song]
+    D --> E{Genre match?}
+    E -- Yes --> F[+2.0]
+    E -- No --> G[+0.0]
+    F --> H{Mood match?}
+    G --> H
+    H -- Yes --> I[+1.0]
+    H -- No --> J[+0.0]
+    I --> K[+ Energy similarity]
+    J --> K
+    K --> L{likes_acoustic?}
+    L -- Yes + acousticness > 0.6 --> M[+0.5]
+    L -- No --> N[+0.0]
+    M --> O[Final Score]
+    N --> O
+    O --> P[recommend_songs sorts all scores]
+    P --> Q[Top-k ranked list]
+```
+
 ---
 
 ## Getting Started
