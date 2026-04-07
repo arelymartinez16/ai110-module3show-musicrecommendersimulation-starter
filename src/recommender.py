@@ -72,12 +72,18 @@ def load_songs(csv_path: str) -> List[Dict]:
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
     """
-    Functional implementation of the recommendation logic.
+    Scores every song, ranks them, and returns the top-k results.
     Required by src/main.py
     """
-    # TODO: Implement scoring and ranking logic
-    # Expected return format: (song_dict, score, explanation)
-    return []
+    scored = []
+    for song in songs:
+        score, reasons = score_song(user_prefs, song)
+        explanation = ", ".join(reasons)
+        scored.append((song, score, explanation))
+
+    scored.sort(key=lambda x: x[1], reverse=True)
+
+    return scored[:k]
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     """
