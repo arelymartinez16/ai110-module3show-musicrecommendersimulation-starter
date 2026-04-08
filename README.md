@@ -88,6 +88,8 @@ flowchart TD
 
 ---
 
+![Screenshot of the terminal output of the recommendations](image.png)
+
 ## Getting Started
 
 ### Setup
@@ -133,6 +135,35 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+### Screenshot of a user profile with conflicting preferences
+
+![Screenshot of a user profile with conflicting preferences](image-1.png)
+
+### Screenshot of a user profile with conflicting preferences
+
+![Screenshot of a user profile with a genre not listed in the dataset](image-2.png)
+
+### Screenshot of a user profile with `likes_acoustic` preference being wasted
+
+![Screenshot of a user profile with likes_acoustic preference being wasted](image-3.png)
+
+### Screenshot of a user profile with genre + mood never co-occurring in the catalog
+
+![Screenshot of a user profile with genre + mood never co-occurring in the catalog](image-4.png)
+
+### Screenshot of a user profile with out-of-range energy scores
+
+![Screenshot of a user profile with out-of-range energy scores
+](image-5.png)
+
+### Screenshot of a user profile with case sensitivity trap
+
+![Screenshot of a user profile with case sensitivity trap](image-6.png)
+
+### Screenshot of a user profile with the perfect match
+
+![Screenshot of a user profile with the perfect match](image-7.png)
+
 ---
 
 ## Limitations and Risks
@@ -146,6 +177,8 @@ Examples:
 - It might over favor one genre or mood
 
 You will go deeper on this in your model card.
+
+The `likes_acoustic` preference awards a +0.5 bonus only when a song's acousticness exceeds 0.6, but every song in that eligibility group has an energy level below 0.50. This means any user who prefers high-energy music (target_energy above 0.7) and sets `likes_acoustic: True` will never receive the acoustic bonus — not because their preference is invalid, but because the dataset contains no high-energy acoustic songs. As a result, these users are silently capped at a maximum score of 4.0 while low-energy users can reach 4.5, making the two groups non-comparable on the same scale. The system never signals this conflict to the user, so a rock fan who enjoys acoustic guitar might set `likes_acoustic: True` expecting it to help, only for the preference to be completely ignored in every recommendation.
 
 ---
 
